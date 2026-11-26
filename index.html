@@ -344,8 +344,8 @@ nav.links a:hover,nav.links a[aria-current="page"]{color:var(--fg)}
 .sc-rel .iso4{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(64deg)}
 .sc-rel .pad{position:absolute;left:90px;top:90px;width:300px;height:300px;border-radius:50%;transform-style:preserve-3d;background:radial-gradient(circle,color-mix(in oklab,var(--accent) 26%,transparent),transparent 62%);box-shadow:inset 0 0 0 1px var(--line-2)}
 .sc-rel .pad i{position:absolute;display:block;border-radius:50%}
-.sc-rel .ringp{inset:-14px;background:conic-gradient(from 0deg,var(--accent) var(--p),transparent 0);-webkit-mask:radial-gradient(closest-side,transparent calc(100% - 4px),#000 calc(100% - 3px));mask:radial-gradient(closest-side,transparent calc(100% - 4px),#000 calc(100% - 3px));filter:drop-shadow(0 0 8px var(--accent));transition:--p 2.4s var(--ease) .3s}
-.scene.on.sc-rel .ringp{--p:100%}
+.sc-rel .ringp{inset:-14px;background:conic-gradient(from 0deg,var(--accent) var(--rp),transparent 0);-webkit-mask:radial-gradient(closest-side,transparent calc(100% - 4px),#000 calc(100% - 3px));mask:radial-gradient(closest-side,transparent calc(100% - 4px),#000 calc(100% - 3px));filter:drop-shadow(0 0 8px var(--accent));transition:--rp 2.4s var(--ease) .3s}
+.scene.on.sc-rel .ringp{--rp:100%}
 .sc-rel .dash{inset:-44px;border:1px dashed var(--line-2)!important;animation:spinZ 40s linear infinite}
 .sc-rel .shadow{left:100px;top:100px;width:100px;height:100px;background:radial-gradient(closest-side,rgba(0,0,0,.45),transparent);transition:transform 1.4s var(--ease)}
 .scene.on.sc-rel .shadow{transform:scale(.7)}
@@ -373,7 +373,7 @@ nav.links a:hover,nav.links a[aria-current="page"]{color:var(--fg)}
 @keyframes spark{0%{opacity:0;transform:translate(var(--x),var(--y)) translateZ(0)}20%{opacity:1}100%{opacity:0;transform:translate(var(--x),var(--y)) translateZ(170px)}}
 .rel-v{position:absolute;left:50%;bottom:4%;transform:translateX(-50%);font:600 26px/1 var(--f-sans);letter-spacing:-.03em;color:var(--fg);white-space:nowrap}
 .rel-v em{font:500 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:#3DD68C;margin-left:8px;vertical-align:middle}
-@property --p{syntax:'<percentage>';inherits:false;initial-value:0%}
+@property --rp{syntax:'<percentage>';inherits:false;initial-value:0%}
 
 /* sections */
 .sec{padding-block:clamp(96px,13vw,180px)}
@@ -532,6 +532,18 @@ nav.links a:hover,nav.links a[aria-current="page"]{color:var(--fg)}
 .pr .n{font-size:clamp(36px,4vw,56px);font-weight:520;letter-spacing:-.05em;line-height:1}
 .pr .n small{font-size:.42em;color:var(--fg-3);letter-spacing:-.01em;margin-left:4px}
 .pr p{color:var(--fg-2);font-size:14.5px;margin-top:12px;max-width:26ch}
+.pr .n{display:flex;align-items:baseline}
+.odo{display:inline-block;height:1em;overflow:hidden;position:relative;-webkit-mask:linear-gradient(transparent,#000 14%,#000 86%,transparent);mask:linear-gradient(transparent,#000 14%,#000 86%,transparent)}
+.odo>b{display:flex;flex-direction:column;font-weight:inherit;transform:translateY(0);opacity:0;filter:blur(8px);transition:transform 2s cubic-bezier(.16,1,.3,1),opacity .6s,filter 1s var(--ease);transition-delay:calc(var(--k)*.16s)}
+.odo>b>i{font-style:normal;height:1em;line-height:1;display:block}
+.pr .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.principles.odo-on .pr .n small{opacity:0;transform:translateX(-10px);transition:opacity .8s var(--ease),transform .9s var(--ease);transition-delay:calc(var(--k)*.16s + .9s)}
+.principles .pr{position:relative}
+.principles.odo-on .pr::before{content:"";position:absolute;left:0;right:24px;top:-18px;height:1px;background:linear-gradient(90deg,var(--accent),transparent);transform:scaleX(0);transform-origin:left;transition:transform 1.6s var(--ease);transition-delay:calc(var(--k)*.16s + .2s)}
+.principles.odo-on .pr+.pr::before{left:24px}
+.principles.go .odo>b{transform:translateY(calc(var(--n)*-1em));opacity:1;filter:none}
+.principles.odo-on.go .pr .n small{opacity:1;transform:none}
+.principles.go .pr::before{transform:scaleX(1)}
 @media (max-width:900px){ .principles{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:36px} .pr:nth-child(3){padding-left:0;border-left:0} }
 
 /* process: steps scroll on the left, a sticky animated scene on the right */
@@ -753,7 +765,8 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;paddin
 .d-hero::after{width:44vw;height:44vw;max-width:620px;max-height:620px;left:-14vw;top:10vw;background:radial-gradient(closest-side,color-mix(in srgb,var(--ac) 18%,transparent),transparent);animation:aur2 19s ease-in-out infinite alternate}
 @keyframes aur1{to{transform:translate(-8vw,6vw) scale(1.15)}}
 @keyframes aur2{to{transform:translate(10vw,-4vw) scale(.9)}}
-.d-icon{animation:float 6s ease-in-out infinite}
+.d-icon{animation:iconDrop 1.15s cubic-bezier(.22,1.25,.36,1) .28s backwards,float 6s ease-in-out 1.5s infinite}
+@keyframes iconDrop{0%{opacity:0;transform:translateY(-200px) rotate(-16deg) scale(.6);filter:blur(6px)}55%{opacity:1;filter:none}}
 @keyframes float{50%{transform:translateY(-8px) rotate(-2deg)}}
 .d-side{padding:22px;border-radius:24px;background:color-mix(in oklab,var(--bg-3) 55%,transparent);backdrop-filter:blur(22px) saturate(1.4);-webkit-backdrop-filter:blur(22px) saturate(1.4);box-shadow:inset 0 0 0 1px var(--line),inset 0 1px 0 rgba(255,255,255,.06),0 30px 60px -30px rgba(0,0,0,.5)}
 .d-top h1{background:linear-gradient(180deg,var(--fg) 40%,color-mix(in srgb,var(--ac) 70%,var(--fg)));-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:.06em}
@@ -1459,7 +1472,7 @@ function renderDetail(id){
     <div class="wrap">
       <button class="back" type="button" data-home>← ${u.back}</button>
       <div class="d-top">
-        <div><img class="d-icon" src="${A+a.icon}" alt="" width="88" height="88" style="view-transition-name:app-icon"><h1 style="view-transition-name:app-title">${a.n}</h1><p class="tag">${a.tag[lang]}</p></div>
+        <div><img class="d-icon" src="${A+a.icon}" alt="" width="88" height="88"><h1 style="view-transition-name:app-title">${a.n}</h1><p class="tag">${a.tag[lang]}</p></div>
         <div class="d-side">
           <div class="stores">${a.ios?`<a class="store" href="${a.ios}" target="_blank" rel="noopener">${APPLE}${u.app}</a>`:`<span class="store off">${APPLE}${u.soon}</span>`}<a class="store" href="${a.play}" target="_blank" rel="noopener">${PLAY}${u.gp}</a></div>
           <dl><dt>${u.cat}</dt><dd>${L(a.cat)}</dd><dt>${u.plat}</dt><dd>${L(a.plat)}</dd><dt>${u.langs}</dt><dd>${a.langs}</dd><dt>${u.tech}</dt><dd>${a.tech}</dd><dt>${u.pkg}</dt><dd style="font-family:var(--f-mono);font-size:12.5px">${a.pid}</dd></dl>
@@ -1666,6 +1679,14 @@ function renderDash(){
   const el=$('#dash'); el.classList.remove('in');
   if(dashIO) dashIO.observe(el); else el.classList.add('in');
 }
+(function odo(){const box=$('.principles');if(!box||reduce)return;box.classList.add('odo-on');
+  $$('.pr').forEach((pr,k)=>{pr.style.setProperty('--k',k);const n=pr.querySelector('.n');const t=n&&n.firstChild;if(!t||t.nodeType!==3)return;const v=t.textContent.trim();
+    let seq;if(/^\d$/.test(v)){seq=[...'0123456789'];for(let d=0;d<=+v;d++)seq.push(String(d))}else{const L='ABCDEFGHIJKLMN',j=L.indexOf(v);if(j<0)return;seq=[...L.slice(0,j+1)]}
+    const o=document.createElement('span');o.className='odo';o.setAttribute('aria-hidden','true');o.innerHTML=`<b style="--n:${seq.length-1}">${seq.map(c=>`<i>${c}</i>`).join('')}</b>`;
+    const h=document.createElement('span');h.className='vh';h.textContent=v;n.replaceChild(o,t);n.insertBefore(h,o.nextSibling)});
+  const go=()=>box.classList.add('go');
+  if('IntersectionObserver' in window) new IntersectionObserver((es,ob)=>es.forEach(e=>{if(e.isIntersecting){setTimeout(go,150);ob.disconnect()}}),{threshold:.35}).observe(box); else go();
+})();
 const countUp=root=>root.querySelectorAll('[data-count]').forEach(n=>{const to=+n.dataset.count;if(reduce){n.textContent=to;return}const t0=performance.now();const f=t=>{const p=Math.min(1,(t-t0)/1100),e=1-Math.pow(1-p,3);n.textContent=Math.round(e*to);if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)});
 const dashIO=('IntersectionObserver' in window)?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');countUp(e.target);dashIO.unobserve(e.target)}}),{threshold:.2}):null;
 
@@ -1851,7 +1872,7 @@ function nav(fn,iconId){
   if(document.startViewTransition){
     $$('[data-icon]').forEach(el=>el.style.viewTransitionName='');
     $$('.panel').forEach(el=>{el.style.viewTransitionName='';const h=el.querySelector('h3');if(h)h.style.viewTransitionName=''});
-    if(iconId&&!$('#home').hidden){const el=document.querySelector(`.panel [data-icon="${iconId}"]`); if(el){el.style.viewTransitionName='app-icon';const pn=el.closest('.panel');pn.style.viewTransitionName='app-card';pn.querySelector('h3').style.viewTransitionName='app-title'}}
+    if(iconId&&!$('#home').hidden){const el=document.querySelector(`.panel [data-icon="${iconId}"]`); if(el){const pn=el.closest('.panel');pn.style.viewTransitionName='app-card';pn.querySelector('h3').style.viewTransitionName='app-title'}}
     document.startViewTransition(()=>{fn();applyRoute()});
   }else{
     const c=$('#curtain');
