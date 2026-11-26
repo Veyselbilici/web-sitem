@@ -89,6 +89,8 @@ nav.links a{position:relative;z-index:1}
 .bar{display:flex;align-items:center;gap:24px;height:60px}
 .brand{font-weight:600;font-size:15.5px;letter-spacing:-.02em;text-decoration:none;display:flex;align-items:baseline;gap:2px}
 .brand sup{font:500 9px/1 var(--f-mono);color:var(--fg-3);letter-spacing:.05em}
+.brand{white-space:nowrap;flex:none}
+@media (max-width:400px){.brand sup{display:none}}
 nav.links{display:flex;gap:2px;margin-left:auto}
 nav.links a{text-decoration:none;font-size:14px;color:var(--fg-2);padding:7px 12px;border-radius:999px;transition:color .2s}
 nav.links a:hover,nav.links a[aria-current="page"]{color:var(--fg)}
@@ -260,15 +262,34 @@ nav.links a:hover,nav.links a[aria-current="page"]{color:var(--fg)}
 
 /* screen wall: two rows of store screenshots that slide against each other with scroll */
 .wall{padding-block:clamp(96px,12vw,170px);overflow:hidden;position:relative}
-.wall::before{content:"";position:absolute;left:50%;top:44%;width:min(1100px,110vw);height:520px;transform:translate(-50%,-10%);background:radial-gradient(50% 50% at 50% 50%,color-mix(in oklab,var(--accent) 16%,transparent),transparent 70%);filter:blur(40px);pointer-events:none}
-.ringwrap{position:relative;height:calc(var(--h,320px) * 1.55);perspective:1700px;perspective-origin:50% 30%;cursor:grab;touch-action:pan-y;user-select:none;-webkit-mask:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
-.ringwrap.drag{cursor:grabbing}
-.ring3d{position:absolute;left:50%;top:42%;width:0;height:0;transform-style:preserve-3d}
-.ring3d a{position:absolute;left:0;top:0;display:block;border-radius:18px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.08),0 40px 60px -30px rgba(0,0,0,.8);transition:box-shadow .5s;-webkit-box-reflect:below 14px linear-gradient(transparent 72%,rgba(255,255,255,.16))}
-.ring3d a.front{box-shadow:0 0 0 1px color-mix(in srgb,var(--ac) 60%,transparent),0 0 60px -10px color-mix(in srgb,var(--ac) 55%,transparent),0 40px 60px -30px rgba(0,0,0,.8)}
-.ring3d img{width:100%;height:100%;max-width:none;pointer-events:none}
-.ringfloor{position:absolute;left:10%;right:10%;bottom:4%;height:30%;background:radial-gradient(50% 50% at 50% 50%,color-mix(in oklab,var(--accent) 14%,transparent),transparent 70%);filter:blur(20px)}
-.ringhint{text-align:center;margin-top:8px}
+.rvsum{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-radius:22px;margin-bottom:clamp(36px,4vw,56px);background:color-mix(in oklab,var(--bg-2) 60%,transparent);box-shadow:inset 0 0 0 1px var(--line);overflow:hidden}
+.rvsum>div{padding:22px 24px;position:relative;opacity:0;transform:translateY(14px);transition:opacity .8s var(--ease),transform .9s var(--ease);transition-delay:calc(var(--k)*.08s)}
+.rvsum>div+div{box-shadow:inset 1px 0 0 var(--line)}
+.rvsum.in>div{opacity:1;transform:none}
+.rvsum b{display:block;font-size:clamp(26px,2.6vw,36px);font-weight:520;letter-spacing:-.04em;line-height:1}
+.rvsum b small{font-size:.5em;color:var(--fg-3);margin-left:3px;letter-spacing:0}
+.rvsum span{display:block;margin-top:10px;color:var(--fg-3);font-size:13px}
+.rvsum .st{display:inline-flex;gap:2px;margin-left:8px;vertical-align:middle}
+.rvsum .st svg{width:13px;height:13px;fill:var(--fg)}
+.rvm{display:grid;gap:16px;-webkit-mask:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.rvrow{display:flex;gap:16px;width:max-content;animation:rvMove var(--d,90s) linear infinite}
+.rvrow.rev{animation-direction:reverse}
+.rvm:hover .rvrow{animation-play-state:paused}
+@keyframes rvMove{to{transform:translateX(-50%)}}
+.rvc{flex:none;width:min(360px,78vw);padding:22px 22px 18px;border-radius:20px;display:flex;flex-direction:column;gap:14px;
+  background:linear-gradient(180deg,color-mix(in oklab,var(--fg) 4%,transparent),color-mix(in oklab,var(--fg) 1.5%,transparent));box-shadow:inset 0 0 0 1px var(--line);transition:box-shadow .4s,transform .6s var(--ease)}
+.rvc:hover{box-shadow:inset 0 0 0 1px var(--line-2),0 24px 50px -30px rgba(0,0,0,.5);transform:translateY(-3px)}
+.rvc .top{display:flex;justify-content:space-between;align-items:center}
+.rvc .st{display:flex;gap:2px}.rvc .st svg{width:13px;height:13px;fill:var(--fg)}.rvc .st svg.o{fill:var(--line-2)}
+.rvc .src{font:500 10.5px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3);display:inline-flex;align-items:center;gap:6px}
+.rvc .src svg{width:12px;height:12px;fill:currentColor}
+.rvc q{quotes:none;color:var(--fg-2);font-size:15px;line-height:1.55;flex:1}
+.rvc .by{display:flex;align-items:center;gap:10px;padding-top:14px;box-shadow:inset 0 1px 0 var(--line);font-size:13px;color:var(--fg-3)}
+.rvc .by img{width:24px;height:24px;border-radius:7px}
+.rvc .by strong{color:var(--fg);font-weight:500}
+.rvnote{text-align:center;margin-top:28px;color:var(--fg-3)}
+@media (max-width:700px){.rvsum{grid-template-columns:1fr 1fr}.rvsum>div:nth-child(3){box-shadow:inset 0 1px 0 var(--line)}.rvsum>div:nth-child(4){box-shadow:inset 1px 0 0 var(--line),inset 0 1px 0 var(--line)}.rvsum>div{padding:18px}}
+@media (prefers-reduced-motion:reduce){.rvrow{animation:none}.rvm{overflow-x:auto}}
 .marq{overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);padding-block:14px 30px}
 .rowx{display:flex;gap:18px;width:max-content;align-items:flex-start;animation:marq 110s linear infinite}
 .marq:hover .rowx{animation-play-state:paused}
@@ -561,6 +582,7 @@ nav.links a:hover,nav.links a[aria-current="page"]{color:var(--fg)}
 .pstep p{color:var(--fg-2);margin-top:16px;max-width:30ch;font-size:clamp(16px,1.3vw,18px)}
 .psteps{grid-column:1;grid-row:1} .pstage-wrap{grid-column:2;grid-row:1}
 .pstage{position:sticky;top:calc(50vh - min(270px,22vw));height:min(540px,44vw)}
+@media (max-width:1100px){.pstage{overflow:hidden}}
 .pstage{perspective:1400px;border-radius:32px;background:radial-gradient(60% 60% at 50% 45%,color-mix(in oklab,var(--accent) 14%,transparent),transparent 70%),color-mix(in oklab,var(--bg-2) 70%,transparent);box-shadow:inset 0 0 0 1px var(--line),inset 0 1px 0 rgba(255,255,255,.05),0 50px 100px -60px rgba(0,0,0,.6)}
 .pstage::before{content:"";position:absolute;inset:0;border-radius:inherit;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:32px 32px;-webkit-mask:radial-gradient(70% 70% at 50% 50%,#000 30%,transparent 80%);mask:radial-gradient(70% 70% at 50% 50%,#000 30%,transparent 80%);opacity:.7}
 .pstage::after{content:"";position:absolute;inset:14px;border-radius:22px;pointer-events:none;
@@ -1120,11 +1142,12 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;paddin
 
 <section class="wall" id="wall">
   <div class="wrap lead">
-    <span class="cap" data-i18n="wall.k">Ekranlar</span>
-    <h2 class="h2 sw"><span data-i18n="wall.h1">Mağazadaki hâlleriyle.</span> <span class="dim" data-i18n="wall.h2">Kırpılmadan, süslenmeden.</span></h2>
+    <span class="cap" data-i18n="wall.k">Kullanıcı deneyimi</span>
+    <h2 class="h2 sw"><span data-i18n="wall.h1">Kullananlar anlatıyor.</span> <span class="dim" data-i18n="wall.h2">App Store ve Google Play yorumlarından.</span></h2>
   </div>
-  <div class="ringwrap" id="ringwrap"><div class="ring3d" id="row1"></div><div class="ringfloor" aria-hidden="true"></div></div>
-  <p class="ringhint cap" data-i18n="wall.hint">Sürükle ya da bir ekrana dokun</p>
+  <div class="wrap"><div class="rvsum" id="rvsum"></div></div>
+  <div class="rvm" id="rvm"></div>
+  <p class="rvnote cap" data-i18n="wall.note">Temsili yorumlar ve veriler · yayında mağaza verisiyle değişecek</p>
 </section>
 
 <section class="sec" style="padding-top:clamp(40px,6vw,80px)">
@@ -1292,7 +1315,7 @@ const T={tr:{},en:{
  'hero.lede':'I build scalable mobile and web products that pair a refined user experience with solid architecture.',
  'm.1':'Apps live','m.3':'Languages','m.4':'İzmir · local time',
  'proc.h2':'Five steps, one flow.','ly.1':'Interface','ly.2':'Services','ly.3':'Data',
- 'wall.k':'Screens','dh.k':'Product dashboard','dh.h1':'Shipping is not the end.','dh.h2':'Every release is watched, measured and improved.','wall.h1':'As they appear in the stores.','wall.h2':'Uncropped, unstaged.',
+ 'wall.k':'User experience','dh.k':'Product dashboard','dh.h1':'Shipping is not the end.','dh.h2':'Every release is watched, measured and improved.','wall.h1':'In their users’ words.','wall.h2':'From App Store and Google Play reviews.','wall.note':'Representative reviews and figures · replaced with store data at launch',
  'hero.cta1':'Explore the products','hero.cta2':'About me','d3.g':'Grid','d3.c':'Content','d3.k':'Components','d3.a':'Interaction','d3.l':'live','ar.req':'Request','ar.res':'Response','m.1s':'On the App Store and Google Play','wall.hint':'Drag, or tap a screen','hs.0':'01 · Design','hs.1':'02 · Product','hs.2':'03 · Engineering','hs.k':'Scroll',
  'work.k':'Selected work','work.h1':'Five products, five different problems.','work.h2':'All live, all in use.',
  'eng.k':'Engineering','eng.h1':'A beautiful screen is only as good as the system behind it.','eng.h2':'I build both together.',
@@ -1355,33 +1378,31 @@ function renderScenes(){
   let t=''; for(let i=0;i<72;i++){const a=i*Math.PI/36,r1=146,r2=i%6?152:160;t+=`<line x1="${(240+Math.cos(a)*r1).toFixed(1)}" y1="${(240+Math.sin(a)*r1).toFixed(1)}" x2="${(240+Math.cos(a)*r2).toFixed(1)}" y2="${(240+Math.sin(a)*r2).toFixed(1)}" stroke="var(--line-2)"/>`}
   const tk=$('#ticks'); if(tk) tk.innerHTML=t;
 }
-/* screens on a slowly turning 3D ring: true aspect ratios, angles laid out by each width */
-let ring=null;
+/* store reviews: two calm rows drifting in opposite directions (representative data) */
+const STAR=`<svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></svg>`,stars=n=>[1,2,3,4,5].map(k=>k<=n?STAR:STAR.replace('<svg','<svg class="o"')).join('');
+const IOS='<svg viewBox="0 0 24 24"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9 0 0-2.7-1-2.7-4.1zM13.9 5c.7-.9 1.2-2 1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5z"/></svg>';
+const GP='<svg viewBox="0 0 24 24"><path d="M3.6 2.2 13.4 12l-9.8 9.8c-.4-.2-.6-.6-.6-1.1V3.3c0-.5.2-.9.6-1.1zm11 8.6 2.6-2.6 3.6 2.1c.8.5.8 1.4 0 1.9l-3.6 2.1-2.6-2.6-1.2-1.2zM5 1.6l10.4 6-2.2 2.2zm8.2 12.6 2.2 2.2L5 22.4z"/></svg>';
+const REV=[
+ ['camella','i',5,'Elif K.','Tek fotoğrafla 70’ler ve 90’lar hâllerimi gördüm. Sonuçlar çok doğal, kayıt olmadan kullanmak da büyük artı.','I saw myself in the 70s and the 90s from a single photo. Very natural results, and no sign-up is a big plus.'],
+ ['periyodoz','i',5,'Hatice D.','Annemin ilaç saatlerini artık kaçırmıyoruz. Hatırlatmalar tam zamanında geliyor, arayüzü çok sade.','We no longer miss my mother’s medication times. Reminders arrive right on time and the interface is clean.'],
+ ['tadfit','a',5,'Burak Y.','Barkodu okutunca kalori ve makrolar hemen geliyor. Plan alerjilerimi dikkate alıyor, bu çok önemliydi.','Scan a barcode and the calories and macros show up instantly. The plan respects my allergies, which mattered a lot.'],
+ ['falio','a',5,'Zeynep A.','Tasarımı çok şık, yorumlar akıcı. Kahve falı bölümünü her sabah açıyorum.','Beautiful design and the readings flow well. I open the coffee reading every morning.'],
+ ['zartzurt','a',5,'Emre T.','Arkadaş grubunda en çok kullandığımız uygulama oldu. Sesler hızlı açılıyor, internetsiz de çalışıyor.','It became our friend group’s most used app. Sounds load fast and it works offline too.'],
+ ['camella','a',4,'Can Ö.','Kampanya modu sosyal medya için harika görseller çıkarıyor. Birkaç stil daha gelirse tam puan.','Campaign mode makes great visuals for social media. A few more styles and it’s five stars.'],
+ ['periyodoz','a',5,'Mehmet S.','Verilerimin nasıl kullanıldığı açıkça yazıyor, hesabı tek dokunuşla silebiliyorum. Güven veriyor.','It states clearly how my data is used and I can delete my account in one tap. That builds trust.'],
+ ['tadfit','i',5,'Selin K.','Diyetisyen uygulamalarından sıkılmıştım, bu çok daha anlaşılır. Haftalık özet ekranı çok iyi.','I was tired of diet apps, this one is far clearer. The weekly summary screen is great.'],
+ ['falio','a',4,'Ayşe B.','Ruh eşi uyumu bölümü eğlenceli. Uygulama hızlı ve hiç donmadı.','The soulmate match section is fun. The app is fast and never froze.'],
+ ['zartzurt','i',5,'Oğuz M.','Sallayınca ses değişmesi çok iyi fikir. Kategoriler düzenli, aradığımı hemen buluyorum.','Shaking to change the pitch is a great idea. Categories are tidy, I find what I need instantly.'],
+ ['camella','i',5,'Deniz Ç.','Evcil hayvan portreleri bambaşka olmuş, kedimin Rönesans tablosu artık duvarımda.','The pet portraits are something else. My cat’s Renaissance painting is now on my wall.'],
+ ['periyodoz','i',5,'Gülşen T.','Uyku ve su takibi aynı yerde olunca düzenli kullanmaya başladım. Bildirimler rahatsız etmiyor.','Having sleep and water tracking in one place got me using it daily. Notifications never feel pushy.']];
 function renderWall(){
-  let seq=[]; for(let k=0;k<3;k++) APPS.forEach(a=>{const f=shotsOf(a)[k]; if(f) seq.push([a,f])});
-  if(innerWidth>700) seq=seq.concat(seq.slice(5),seq.slice(0,5));
-  $('#row1').innerHTML=seq.map(([a,f])=>`<a href="#${a.id}" aria-label="${a.n}" style="--ac:${a.ac}">${img(f,a.n,'loading="lazy" draggable="false"')}</a>`).join('');
-  if(!ring) ring=initRing(); ring.layout();
-}
-function initRing(){
-  const wrap=$('#ringwrap'),el=$('#row1'); let ang=0,vel=0,drag=null,moved=0,vis=false,raf=0,items=[],R=400,last=0;
-  const layout=()=>{items=[...el.children];const h=Math.round(Math.min(380,Math.max(230,innerWidth*.24))),gap=Math.round(h*.09);
-    const ws=items.map(it=>{const im=it.querySelector('img');return Math.round(h*(+im.getAttribute('width'))/(+im.getAttribute('height')))});
-    const tot=ws.reduce((s,w)=>s+w+gap,0); R=tot/(2*Math.PI); let acc=0;
-    items.forEach((it,i)=>{const w=ws[i];it._a=(acc+w/2)/R*180/Math.PI;acc+=w+gap;it.style.width=w+'px';it.style.height=h+'px';it.style.marginLeft=(-w/2)+'px';it.style.marginTop=(-h/2)+'px'});
-    wrap.style.setProperty('--R',R+'px');wrap.style.setProperty('--h',h+'px');paint()};
-  const paint=()=>{el.style.transform=`translateZ(${-R}px) rotateX(-4deg) rotateY(${ang}deg)`;
-    items.forEach(it=>{const a=((it._a+ang)%360+540)%360-180,c=Math.cos(a*Math.PI/180);it.style.transform=`rotateY(${it._a}deg) translateZ(${R}px)`;it.style.opacity=c<-.05?0:(.25+.75*Math.max(0,c)).toFixed(3);it.classList.toggle('front',Math.abs(a)<10)})};
-  const frame=now=>{const dt=Math.min(.05,(now-(last||now))/1000);last=now;
-    if(!drag){vel+=((reduce?0:-7)-vel)*.04;ang+=vel*dt}
-    paint(); if(vis) raf=requestAnimationFrame(frame)};
-  if('IntersectionObserver' in window) new IntersectionObserver(es=>{vis=es[0].isIntersecting;cancelAnimationFrame(raf);last=0;if(vis)raf=requestAnimationFrame(frame)}).observe(wrap);
-  wrap.addEventListener('pointerdown',e=>{drag={x:e.clientX,a:ang,t:performance.now()};moved=0;wrap.classList.add('drag')});
-  addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x;moved=Math.max(moved,Math.abs(dx));const na=drag.a+dx*.18;vel=(na-ang)/Math.max(.016,(performance.now()-drag.t)/1000)*.6;drag.t=performance.now();ang=na;drag.a=ang;drag.x=e.clientX});
-  addEventListener('pointerup',()=>{if(drag){drag=null;wrap.classList.remove('drag');vel=Math.max(-120,Math.min(120,vel))}});
-  el.addEventListener('click',e=>{if(moved>6){e.preventDefault();e.stopPropagation()}},true);
-  addEventListener('resize',layout);
-  return {layout};
+  const en=lang==='en',T=en?['Average rating','Live products','App Store · Google Play','Crash-free sessions','Stores']:['Ortalama puan','Yayındaki ürün','App Store · Google Play','Çökmesiz oturum','Mağaza'];
+  const sm=$('#rvsum');if(!sm)return;
+  sm.innerHTML=`<div style="--k:0"><b>${en?'4.8':'4,8'}<span class="st">${stars(5)}</span></b><span>${T[0]}</span></div><div style="--k:1"><b>${APPS.length}</b><span>${T[1]}</span></div><div style="--k:2"><b>2<small>${T[4].toLowerCase()}</small></b><span>${T[2]}</span></div><div style="--k:3"><b>${en?'99.6':'%99,6'}${en?'<small>%</small>':''}</b><span>${T[3]}</span></div>`;
+  const card=([id,st,n,who,tr,enT])=>{const a=APPS.find(x=>x.id===id);return `<article class="rvc"><div class="top"><span class="st" aria-label="${n}/5">${stars(n)}</span><span class="src">${st==='i'?IOS+'App Store':GP+'Google Play'}</span></div><q>${en?enT:tr}</q><div class="by"><img src="${A+a.icon}" alt="" width="24" height="24" loading="lazy"><strong>${a.n}</strong><span>· ${who}</span></div></article>`};
+  const row=(list,cls,d)=>{const h=list.map(card).join('');return `<div class="rvrow ${cls}" style="--d:${d}s">${h}<div style="display:contents" aria-hidden="true">${h}</div></div>`};
+  $('#rvm').innerHTML=row(REV.slice(0,6),'',95)+row(REV.slice(6),'rev',110);
+  if(!sm.dataset.io){sm.dataset.io=1;if('IntersectionObserver' in window)new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){sm.classList.add('in');o.disconnect()}}),{threshold:.3}).observe(sm);else sm.classList.add('in')}
 }
 function renderStack(){
   const u=UI[lang];
