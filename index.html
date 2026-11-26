@@ -262,34 +262,60 @@ nav.links a:hover,nav.links a[aria-current="page"]{color:var(--fg)}
 
 /* screen wall: two rows of store screenshots that slide against each other with scroll */
 .wall{padding-block:clamp(96px,12vw,170px);overflow:hidden;position:relative}
-.rvsum{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-radius:22px;margin-bottom:clamp(36px,4vw,56px);background:color-mix(in oklab,var(--bg-2) 60%,transparent);box-shadow:inset 0 0 0 1px var(--line);overflow:hidden}
-.rvsum>div{padding:22px 24px;position:relative;opacity:0;transform:translateY(14px);transition:opacity .8s var(--ease),transform .9s var(--ease);transition-delay:calc(var(--k)*.08s)}
-.rvsum>div+div{box-shadow:inset 1px 0 0 var(--line)}
-.rvsum.in>div{opacity:1;transform:none}
-.rvsum b{display:block;font-size:clamp(26px,2.6vw,36px);font-weight:520;letter-spacing:-.04em;line-height:1}
-.rvsum b small{font-size:.5em;color:var(--fg-3);margin-left:3px;letter-spacing:0}
-.rvsum span{display:block;margin-top:10px;color:var(--fg-3);font-size:13px}
-.rvsum .st{display:inline-flex;gap:2px;margin-left:8px;vertical-align:middle}
-.rvsum .st svg{width:13px;height:13px;fill:var(--fg)}
-.rvm{display:grid;gap:16px;-webkit-mask:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
-.rvrow{display:flex;gap:16px;width:max-content;animation:rvMove var(--d,90s) linear infinite}
-.rvrow.rev{animation-direction:reverse}
-.rvm:hover .rvrow{animation-play-state:paused}
-@keyframes rvMove{to{transform:translateX(-50%)}}
-.rvc{flex:none;width:min(360px,78vw);padding:22px 22px 18px;border-radius:20px;display:flex;flex-direction:column;gap:14px;
-  background:linear-gradient(180deg,color-mix(in oklab,var(--fg) 4%,transparent),color-mix(in oklab,var(--fg) 1.5%,transparent));box-shadow:inset 0 0 0 1px var(--line);transition:box-shadow .4s,transform .6s var(--ease)}
-.rvc:hover{box-shadow:inset 0 0 0 1px var(--line-2),0 24px 50px -30px rgba(0,0,0,.5);transform:translateY(-3px)}
-.rvc .top{display:flex;justify-content:space-between;align-items:center}
-.rvc .st{display:flex;gap:2px}.rvc .st svg{width:13px;height:13px;fill:var(--fg)}.rvc .st svg.o{fill:var(--line-2)}
-.rvc .src{font:500 10.5px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3);display:inline-flex;align-items:center;gap:6px}
-.rvc .src svg{width:12px;height:12px;fill:currentColor}
-.rvc q{quotes:none;color:var(--fg-2);font-size:15px;line-height:1.55;flex:1}
-.rvc .by{display:flex;align-items:center;gap:10px;padding-top:14px;box-shadow:inset 0 1px 0 var(--line);font-size:13px;color:var(--fg-3)}
-.rvc .by img{width:24px;height:24px;border-radius:7px}
-.rvc .by strong{color:var(--fg);font-weight:500}
-.rvnote{text-align:center;margin-top:28px;color:var(--fg-3)}
-@media (max-width:700px){.rvsum{grid-template-columns:1fr 1fr}.rvsum>div:nth-child(3){box-shadow:inset 0 1px 0 var(--line)}.rvsum>div:nth-child(4){box-shadow:inset 1px 0 0 var(--line),inset 0 1px 0 var(--line)}.rvsum>div{padding:18px}}
-@media (prefers-reduced-motion:reduce){.rvrow{animation:none}.rvm{overflow-x:auto}}
+.rvw{perspective:1800px}
+.rvnote{display:block;text-align:center;margin-top:28px;color:var(--fg-3)}
+.rvg{display:grid;gap:14px;grid-template-columns:1.05fr 1fr 1fr .9fr;grid-template-areas:"s f f a" "s q1 b q2" "c q3 q3 d";transform:rotateX(var(--tx,0deg)) rotateY(var(--ty,0deg));transform-style:preserve-3d;transition:transform .9s var(--ease)}
+.rt{position:relative;border-radius:22px;padding:24px;min-width:0;overflow:hidden;
+  background:linear-gradient(180deg,color-mix(in oklab,var(--fg) 4.5%,var(--bg)),color-mix(in oklab,var(--fg) 1.5%,var(--bg)));box-shadow:inset 0 0 0 1px var(--line),inset 0 1px 0 rgba(255,255,255,.04),0 30px 60px -40px rgba(0,0,0,.55);
+  opacity:0;transform:translate3d(var(--fx),var(--fy),var(--fz)) rotateX(var(--rx)) rotateY(var(--ry)) scale(.9);
+  transition:opacity .7s var(--ease),transform 1.25s cubic-bezier(.2,1.15,.32,1),box-shadow .4s;transition-delay:calc(var(--k)*85ms)}
+.rvw.in .rt{opacity:1;transform:none}
+.rt:hover{box-shadow:inset 0 0 0 1px var(--line-2),inset 0 1px 0 rgba(255,255,255,.06),0 40px 80px -40px rgba(0,0,0,.6)}
+.rt::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(240px circle at var(--mx,50%) var(--my,-40%),color-mix(in oklab,var(--fg) 7%,transparent),transparent 70%);opacity:0;transition:opacity .4s}
+.rt:hover::after{opacity:1}
+.rt .st{display:inline-flex;gap:2px}.rt .st svg{width:13px;height:13px;fill:var(--fg)}.rt .st svg.o{fill:var(--line-2)}
+.rt .src{font:500 10px/1 var(--f-mono);letter-spacing:.09em;text-transform:uppercase;color:var(--fg-3);display:inline-flex;align-items:center;gap:6px}
+.rt .src svg{width:11px;height:11px;fill:currentColor}
+.rt .by{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--fg-3)}
+.rt .by img{width:24px;height:24px;border-radius:7px}
+.rt .by strong{color:var(--fg);font-weight:500}
+.rs{grid-area:s;display:flex;flex-direction:column;gap:18px}
+.rs .big{font-size:clamp(64px,7vw,104px);font-weight:520;letter-spacing:-.06em;line-height:.9}
+.rs .cnt{color:var(--fg-3);font-size:13px;margin-top:8px}
+.rs .dist{display:grid;gap:7px;margin-top:auto}
+.rs .dist div{display:grid;grid-template-columns:14px 1fr 34px;align-items:center;gap:10px;font:500 11px/1 var(--f-mono);color:var(--fg-3)}
+.rs .dist u{display:block;height:4px;border-radius:4px;background:var(--line);overflow:hidden;text-decoration:none}
+.rs .dist u i{display:block;height:100%;width:var(--w);background:var(--fg);border-radius:inherit;transform:scaleX(0);transform-origin:left;transition:transform 1.4s var(--ease);transition-delay:calc(.6s + var(--j)*.08s)}
+.rvw.in .rs .dist u i{transform:none}
+.rs .stores{display:grid;grid-template-columns:1fr 1fr;gap:1px;border-radius:14px;overflow:hidden;background:var(--line);box-shadow:inset 0 0 0 1px var(--line)}
+.rs .stores div{background:var(--bg);padding:12px 14px}
+.rs .stores b{display:block;font-size:20px;font-weight:540;letter-spacing:-.03em;margin-top:8px}
+.rf{grid-area:f;display:flex;flex-direction:column;gap:22px;min-height:300px}
+.rf .top{display:flex;justify-content:space-between;align-items:center}
+.rf .qm{position:absolute;right:22px;top:6px;font:400 150px/1 Georgia,serif;color:var(--fg);opacity:.06;pointer-events:none}
+.rf q{quotes:none;font-size:clamp(21px,2.1vw,29px);line-height:1.28;letter-spacing:-.02em;font-weight:450;color:var(--fg);flex:1}
+.rf q .w{display:inline-block;opacity:0;filter:blur(6px);transform:translateY(8px);animation:wIn .7s var(--ease) forwards;animation-delay:calc(var(--i)*28ms)}
+@keyframes wIn{to{opacity:1;filter:none;transform:none}}
+.rf.out q,.rf.out .by{opacity:0;transform:translateY(-8px);filter:blur(4px);transition:opacity .35s,transform .4s,filter .35s}
+.rf .bot{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.rf .prog{display:flex;gap:5px}
+.rf .prog i{width:18px;height:2px;border-radius:2px;background:var(--line-2);overflow:hidden;position:relative;cursor:pointer}
+.rf .prog i.on::after{content:"";position:absolute;inset:0;background:var(--fg);transform-origin:left;animation:pg var(--dur,6s) linear forwards}
+.rf .prog i.done{background:var(--fg-3)}
+.rvw:hover .rf .prog i.on::after,.rvw.off .rf .prog i.on::after,.rvw:not(.in) .rf .prog i.on::after{animation-play-state:paused}
+@keyframes pg{from{transform:scaleX(0)}}
+.rq{display:flex;flex-direction:column;gap:16px}
+.rq q{quotes:none;color:var(--fg-2);font-size:15px;line-height:1.55;flex:1}
+.ri{display:flex;flex-direction:column;justify-content:space-between;gap:18px;align-items:flex-start}
+.ri img{width:64px;height:64px;border-radius:17px;box-shadow:0 18px 40px -16px color-mix(in srgb,var(--ac) 60%,transparent),0 0 0 1px var(--line);transform:translateZ(30px);transition:transform .8s var(--ease)}
+.ri:hover img{transform:translateZ(30px) translateY(-4px) rotate(-4deg)}
+.ri .nm{font-weight:540;letter-spacing:-.02em;font-size:17px}
+.ri .rt2{display:flex;align-items:baseline;gap:8px;margin-top:6px;color:var(--fg-3);font-size:13px}
+.ri .rt2 b{color:var(--fg);font-size:22px;font-weight:540;letter-spacing:-.03em}
+.ri .pl{font:500 10px/1 var(--f-mono);letter-spacing:.09em;text-transform:uppercase;color:var(--fg-3)}
+@media (max-width:1000px){.rvg{grid-template-columns:1fr 1fr;grid-template-areas:"s f" "s f" "a b" "q1 q2" "c d" "q3 q3"}}
+@media (max-width:640px){.rvg{grid-template-columns:1fr 1fr;grid-template-areas:"f f" "s s" "a b" "q1 q1" "q2 q2" "c d" "q3 q3"}.rt{padding:20px}.rf{min-height:0}.ri img{width:52px;height:52px}}
+@media (prefers-reduced-motion:reduce){.rt{opacity:1;transform:none;transition:none}.rf q .w{animation:none;opacity:1;filter:none;transform:none}.rs .dist u i{transform:none}}
 .marq{overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);padding-block:14px 30px}
 .rowx{display:flex;gap:18px;width:max-content;align-items:flex-start;animation:marq 110s linear infinite}
 .marq:hover .rowx{animation-play-state:paused}
@@ -455,7 +481,7 @@ nav.links a:hover,nav.links a[aria-current="page"]{color:var(--fg)}
 @media (max-width:900px){ .panel{position:relative;top:auto;grid-template-columns:1fr;min-height:0} .panel .shots{height:320px;padding:0 20px} .panel .sh{width:31%} .panel .sh:nth-child(2){margin-top:24px} .panel .fl li:nth-child(3){display:none} }
 
 /* home dashboard: tilts flat and fills in as you scroll */
-.dh{height:260vh;position:relative}
+.dh{height:190vh;position:relative}
 .dh-in{position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;justify-content:center;gap:clamp(20px,3vh,36px);overflow:hidden;perspective:1600px}
 .dh .lead{margin-bottom:0}
 .dframe{--ac:var(--accent);width:min(1240px,calc(100vw - 40px));margin-inline:auto;border-radius:20px;background:var(--bg-2);box-shadow:inset 0 0 0 1px var(--line-2),0 60px 120px -40px rgba(0,0,0,.7),0 0 120px -40px var(--glow);display:grid;grid-template-columns:190px minmax(0,1fr);overflow:hidden;transform-origin:50% 0;will-change:transform}
@@ -499,6 +525,23 @@ nav.links a:hover,nav.links a[aria-current="page"]{color:var(--fg)}
 .dfeed ul{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:7px;font-size:12.5px}
 .dfeed li{display:flex;gap:8px;align-items:center;color:var(--fg-2);opacity:0;transform:translateX(10px);transition:opacity .4s,transform .5s var(--ease)}
 .dfeed li.on{opacity:1;transform:none}
+.dfeed li.new{animation:feedIn .7s var(--ease)}
+@keyframes feedIn{from{opacity:0;transform:translateY(-10px);background:var(--glow)}}
+.dmain>*{opacity:0;transform:translateY(16px) scale(.985);transition:opacity .7s var(--ease),transform .9s var(--ease);transition-delay:calc(var(--k,0)*70ms)}
+.dframe.play .dmain>*{opacity:1;transform:none}
+.dchart{cursor:crosshair}
+.dhdot{position:absolute;left:0;top:0;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px color-mix(in oklab,var(--accent) 22%,transparent),0 0 18px var(--accent);opacity:0;transition:opacity .4s;pointer-events:none}
+.dhdot.on{opacity:1}
+.dframe.live .dhdot:not(.hov){animation:dotP 2.4s ease-in-out infinite}
+@keyframes dotP{50%{box-shadow:0 0 0 9px color-mix(in oklab,var(--accent) 0%,transparent),0 0 18px var(--accent)}}
+.dhtip{position:absolute;left:0;top:0;transform:translate(-50%,calc(-100% - 14px));padding:7px 10px;border-radius:9px;background:var(--fg);color:var(--bg);font:500 11px/1.25 var(--f-mono);white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s}
+.dhtip b{display:block;font:600 13px/1.2 var(--f-sans)}
+.dhtip.on{opacity:1}
+.dframe.live .dbar:last-child{animation:barP 2.4s ease-in-out infinite}
+@keyframes barP{50%{opacity:.55}}
+.kpi .n.tick{animation:kTick .6s var(--ease)}
+@keyframes kTick{40%{color:var(--accent)}}
+@media (prefers-reduced-motion:reduce){.dmain>*{opacity:1;transform:none;transition:none}}
 .dfeed li i{width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none}
 .dfeed li small{margin-left:auto;font:500 10.5px var(--f-mono);color:var(--fg-3)}
 @media (max-width:1000px){ .dframe{grid-template-columns:1fr;max-height:none} .dside{display:none} }
@@ -1145,8 +1188,7 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;paddin
     <span class="cap" data-i18n="wall.k">Kullanıcı deneyimi</span>
     <h2 class="h2 sw"><span data-i18n="wall.h1">Kullananlar anlatıyor.</span> <span class="dim" data-i18n="wall.h2">App Store ve Google Play yorumlarından.</span></h2>
   </div>
-  <div class="wrap"><div class="rvsum" id="rvsum"></div></div>
-  <div class="rvm" id="rvm"></div>
+  <div class="wrap"><div class="rvw" id="rvw"><div class="rvg" id="rvg"></div></div></div>
   <p class="rvnote cap" data-i18n="wall.note">Temsili yorumlar ve veriler · yayında mağaza verisiyle değişecek</p>
 </section>
 
@@ -1395,14 +1437,47 @@ const REV=[
  ['zartzurt','i',5,'Oğuz M.','Sallayınca ses değişmesi çok iyi fikir. Kategoriler düzenli, aradığımı hemen buluyorum.','Shaking to change the pitch is a great idea. Categories are tidy, I find what I need instantly.'],
  ['camella','i',5,'Deniz Ç.','Evcil hayvan portreleri bambaşka olmuş, kedimin Rönesans tablosu artık duvarımda.','The pet portraits are something else. My cat’s Renaissance painting is now on my wall.'],
  ['periyodoz','i',5,'Gülşen T.','Uyku ve su takibi aynı yerde olunca düzenli kullanmaya başladım. Bildirimler rahatsız etmiyor.','Having sleep and water tracking in one place got me using it daily. Notifications never feel pushy.']];
+const RAPP={camella:['4,9','4.9'],tadfit:['4,8','4.8'],zartzurt:['4,7','4.7'],falio:['4,6','4.6']};
+let rvTimer=0,rvIdx=0;
 function renderWall(){
-  const en=lang==='en',T=en?['Average rating','Live products','App Store · Google Play','Crash-free sessions','Stores']:['Ortalama puan','Yayındaki ürün','App Store · Google Play','Çökmesiz oturum','Mağaza'];
-  const sm=$('#rvsum');if(!sm)return;
-  sm.innerHTML=`<div style="--k:0"><b>${en?'4.8':'4,8'}<span class="st">${stars(5)}</span></b><span>${T[0]}</span></div><div style="--k:1"><b>${APPS.length}</b><span>${T[1]}</span></div><div style="--k:2"><b>2<small>${T[4].toLowerCase()}</small></b><span>${T[2]}</span></div><div style="--k:3"><b>${en?'99.6':'%99,6'}${en?'<small>%</small>':''}</b><span>${T[3]}</span></div>`;
-  const card=([id,st,n,who,tr,enT])=>{const a=APPS.find(x=>x.id===id);return `<article class="rvc"><div class="top"><span class="st" aria-label="${n}/5">${stars(n)}</span><span class="src">${st==='i'?IOS+'App Store':GP+'Google Play'}</span></div><q>${en?enT:tr}</q><div class="by"><img src="${A+a.icon}" alt="" width="24" height="24" loading="lazy"><strong>${a.n}</strong><span>· ${who}</span></div></article>`};
-  const row=(list,cls,d)=>{const h=list.map(card).join('');return `<div class="rvrow ${cls}" style="--d:${d}s">${h}<div style="display:contents" aria-hidden="true">${h}</div></div>`};
-  $('#rvm').innerHTML=row(REV.slice(0,6),'',95)+row(REV.slice(6),'rev',110);
-  if(!sm.dataset.io){sm.dataset.io=1;if('IntersectionObserver' in window)new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){sm.classList.add('in');o.disconnect()}}),{threshold:.3}).observe(sm);else sm.classList.add('in')}
+  const en=lang==='en',g=$('#rvg');if(!g)return;const N=v=>en?v[1]:v[0];
+  const T=en?{avg:'average rating',cnt:'1,240 ratings on both stores',plats:'iOS · Android'}:{avg:'ortalama puan',cnt:'İki mağazada 1.240 değerlendirme',plats:'iOS · Android'};
+  const by=(a,who)=>`<div class="by"><img src="${A+a.icon}" alt="" width="24" height="24" loading="lazy"><strong>${a.n}</strong><span>· ${who}</span></div>`;
+  const src=st=>`<span class="src">${st==='i'?IOS+'App Store':GP+'Google Play'}</span>`;
+  const quote=(r,area)=>{const a=APPS.find(x=>x.id===r[0]);return `<article class="rt rq" style="grid-area:${area}"><div class="top" style="display:flex;justify-content:space-between;align-items:center"><span class="st" aria-label="${r[2]}/5">${stars(r[2])}</span>${src(r[1])}</div><q>${en?r[5]:r[4]}</q>${by(a,r[3])}</article>`};
+  const icon=(id,area)=>{const a=APPS.find(x=>x.id===id);return `<a class="rt ri" href="#${id}" style="grid-area:${area};--ac:${a.ac};text-decoration:none;color:inherit"><img src="${A+a.icon}" alt="" width="64" height="64" loading="lazy"><div><div class="nm">${a.n}</div><div class="rt2"><b>${N(RAPP[id])}</b><span class="st">${stars(5)}</span></div><div class="pl" style="margin-top:10px">${id==='falio'?'Google Play':T.plats}</div></div></a>`};
+  const dist=[[5,82],[4,12],[3,4],[2,1],[1,1]];
+  g.innerHTML=`
+   <div class="rt rs"><div><div class="big">${en?'4.8':'4,8'}</div><div style="margin-top:12px"><span class="st">${stars(5)}</span></div><div class="cnt">${T.cnt}</div></div>
+     <div class="dist">${dist.map(([n,w],j)=>`<div style="--j:${j}"><span>${n}</span><u><i style="--w:${w}%"></i></u><span style="text-align:right">${w}%</span></div>`).join('')}</div>
+     <div class="stores"><div>${src('i')}<b>${en?'4.9':'4,9'}</b></div><div>${src('a')}<b>${en?'4.7':'4,7'}</b></div></div></div>
+   <article class="rt rf" id="rvf"><span class="qm" aria-hidden="true">“</span><div class="top"><span class="st"></span><span class="srcw"></span></div><q></q><div class="bot"><span class="byw"></span><div class="prog">${REV.map((_,k)=>`<i data-k="${k}"></i>`).join('')}</div></div></article>
+   ${icon('camella','a')}${quote(REV[6],'q1')}${icon('tadfit','b')}${quote(REV[7],'q2')}${icon('zartzurt','c')}${quote(REV[10],'q3')}${icon('falio','d')}`;
+  // fly-in start poses: each tile comes from its own depth and angle, then snaps into the grid
+  [...g.children].forEach((t,k)=>{const r=(n)=>((Math.sin(k*12.9898+n*78.233)*43758.5453)%1);
+    t.style.setProperty('--k',k);t.style.setProperty('--fx',(r(1)*120).toFixed(0)+'px');t.style.setProperty('--fy',(60+Math.abs(r(2))*80).toFixed(0)+'px');t.style.setProperty('--fz',(-260-Math.abs(r(3))*260).toFixed(0)+'px');
+    t.style.setProperty('--rx',(18+r(4)*14).toFixed(1)+'deg');t.style.setProperty('--ry',(r(5)*26).toFixed(1)+'deg')});
+  const f=$('#rvf'),D=6000;
+  const show=(i,first)=>{rvIdx=(i+REV.length)%REV.length;const r=REV[rvIdx],a=APPS.find(x=>x.id===r[0]);
+    const put=()=>{f.querySelector('.top .st').innerHTML=stars(r[2]);f.querySelector('.srcw').innerHTML=src(r[1]);
+      f.querySelector('q').innerHTML=(en?r[5]:r[4]).split(' ').map((w,j)=>`<span class="w" style="--i:${j}">${w}</span>`).join(' ');f.querySelector('.byw').innerHTML=by(a,r[3]);f.classList.remove('out');
+      f.querySelectorAll('.prog i').forEach((p,k)=>{p.classList.toggle('on',k===rvIdx);p.classList.toggle('done',k<rvIdx)})};
+    if(first)put();else{f.classList.add('out');setTimeout(put,380)}};
+  show(rvIdx,true);
+  f.querySelector('.prog').addEventListener('click',e=>{const p=e.target.closest('i');if(p){show(+p.dataset.k);arm()}});
+  const w=$('#rvw');
+  const arm=()=>{};
+  // the active segment's fill animation is the clock: it pauses on hover/off-screen, and its end advances the quote
+  if(!reduce) f.querySelector('.prog').addEventListener('animationend',e=>{if(e.animationName==='pg')show(rvIdx+1)});
+  if(!w.dataset.b){w.dataset.b=1;
+    if('IntersectionObserver' in window)new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){w.classList.add('in');o.disconnect()}}),{threshold:.18}).observe(w);else w.classList.add('in');
+    if('IntersectionObserver' in window)new IntersectionObserver(es=>es.forEach(e=>w.classList.toggle('off',!e.isIntersecting))).observe(w);
+    w.addEventListener('pointermove',e=>{if(reduce||e.pointerType!=='mouse')return;const r=w.getBoundingClientRect();g.style.setProperty('--ty',(((e.clientX-r.left)/r.width-.5)*4).toFixed(2)+'deg');g.style.setProperty('--tx',(-((e.clientY-r.top)/r.height-.5)*3).toFixed(2)+'deg');
+      const t=e.target.closest('.rt');if(t){const b=t.getBoundingClientRect();t.style.setProperty('--mx',(e.clientX-b.left)+'px');t.style.setProperty('--my',(e.clientY-b.top)+'px')}});
+    w.addEventListener('pointerleave',()=>{g.style.setProperty('--tx','0deg');g.style.setProperty('--ty','0deg')});
+    // the progress line keeps running only while the wall is on screen and not hovered
+  }
+  arm();
 }
 function renderStack(){
   const u=UI[lang];
@@ -1639,8 +1714,9 @@ function renderHomeDash(){
          ${[0,1,2,3].map(i=>`<line x1="0" x2="${W}" y1="${20+i*52}" y2="${20+i*52}" stroke="var(--line)"/>`).join('')}
          <path d="${p1} L${W-8} ${H} L8 ${H}Z" fill="url(#dhG)" clip-path="url(#dhClip)"/>
          <path class="dl-line" d="${p2}" fill="none" stroke="var(--fg-3)" stroke-width="1.6" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
-         <path class="dl-line" d="${p1}" fill="none" stroke="var(--accent)" stroke-width="2.2" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
-       </svg></div>
+         <path class="dl-line" id="dhP1" d="${p1}" fill="none" stroke="var(--accent)" stroke-width="2.2" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+         <line id="dhX" x1="0" x2="0" y1="0" y2="${H}" stroke="var(--fg-3)" stroke-dasharray="3 4" vector-effect="non-scaling-stroke" opacity="0"/>
+       </svg><i class="dhdot" id="dhDot"></i><div class="dhtip" id="dhTip"></div></div>
      <div class="dside2">
        <div class="dcard"><div class="t">${d.plat}</div><div class="donut"><svg viewBox="0 0 42 42"><circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--line-2)" stroke-width="5"/><circle id="dnA" cx="21" cy="21" r="15.9" fill="none" stroke="var(--accent)" stroke-width="5" pathLength="100" stroke-dasharray="0 100"/></svg>
          <ul><li><i style="background:var(--accent)"></i>Android <b data-pct="54" style="margin-left:6px">0%</b></li><li><i style="background:var(--line-2)"></i>iOS <b data-pct="46" style="margin-left:6px">0%</b></li></ul></div></div>
@@ -1651,23 +1727,61 @@ function renderHomeDash(){
    </div>`;
   const f=$('#dframe');
   dhEls={f,lines:[...f.querySelectorAll('.dl-line')],kpis:[...f.querySelectorAll('[data-kpi]')],bars:[...f.querySelectorAll('.dbar')],donut:f.querySelector('#dnA'),pcts:[...f.querySelectorAll('[data-pct]')],tracks:[...f.querySelectorAll('.alist .tr i')],feed:[...f.querySelectorAll('.dfeed li')],clip:f.querySelector('#dhClipR'),W};
-  dhLast=-1;
+  [...f.querySelector('.dmain').children].forEach((c,k)=>c.style.setProperty('--k',k));
+  Object.assign(dhEls,{p1:f.querySelector('#dhP1'),dot:f.querySelector('#dhDot'),tip:f.querySelector('#dhTip'),x:f.querySelector('#dhX'),s1,chart:f.querySelector('.dchart'),H});
+  dhLast=-1; bindDhHover();
+  if(dhDone){f.classList.add('play','live');dataDash(1)}
 }
-let dhLast=-1;
+let dhLast=-1,dhDone=false,dhRun=false,dhLive=0;
 const seg=(v,a,b)=>clamp((v-a)/(b-a)), ez=t=>1-Math.pow(1-t,3);
 function paintDash(p){
   if(!dhEls) return; const e=dhEls;
-  const small=innerWidth<=760, t=ez(seg(p,0,.32));
+  const small=innerWidth<=760, t=ez(seg(p,0,.3));
   if(!small) e.f.style.transform=`rotateX(${((1-t)*22).toFixed(2)}deg) scale(${(.86+.14*t).toFixed(3)}) translateY(${((1-t)*40).toFixed(1)}px)`;
-  const f=reduce?1:seg(p,small?0:.18,small?.9:.82); if(Math.abs(f-dhLast)<.002) return; dhLast=f;
+  if(!dhDone&&!dhRun&&(reduce||p>(small?.12:.16))) playDash();
+}
+function playDash(){
+  const e=dhEls; dhRun=true; e.f.classList.add('play');
+  if(reduce){dataDash(1);dhRun=false;dhDone=true;e.f.classList.add('live');return}
+  const t0=performance.now()+260,D=2600;
+  const step=t=>{const f=clamp((t-t0)/D);dataDash(f);if(f<1)requestAnimationFrame(step);else{dhRun=false;dhDone=true;dhEls.f.classList.add('live');startLive()}};
+  requestAnimationFrame(step);
+}
+function dataDash(f){
+  const e=dhEls; if(!e) return;
   e.lines.forEach((l,i)=>l.style.strokeDashoffset=String(1-ez(seg(f,i*.05,.75+i*.05))));
-  e.clip.setAttribute('width',(ez(seg(f,.05,.85))*e.W).toFixed(1));
+  e.clip.setAttribute('width',(ez(seg(f,.05,.8))*e.W).toFixed(1));
   e.kpis.forEach((n,i)=>{const k=DHK[i];n.textContent=k[2](k[0]*ez(seg(f,0,.6)))});
-  e.bars.forEach((b,i)=>b.style.transform=`scaleY(${ez(seg(f,.2+i*.03,.55+i*.03)).toFixed(3)})`);
+  e.bars.forEach((b,i)=>b.style.transform=`scaleY(${ez(seg(f,.2+i*.025,.55+i*.025)).toFixed(3)})`);
   const dn=ez(seg(f,.15,.7)); e.donut.setAttribute('stroke-dasharray',`${(54*dn).toFixed(1)} 100`);
   e.pcts.forEach(x=>x.textContent=Math.round(+x.dataset.pct*dn)+'%');
   e.tracks.forEach((x,i)=>x.style.transform=`scaleX(${(+x.dataset.w*ez(seg(f,.25+i*.06,.75+i*.04))).toFixed(3)})`);
-  e.feed.forEach((x,i)=>x.classList.toggle('on',f>.35+i*.1));
+  e.feed.forEach((x,i)=>x.classList.toggle('on',f>.3+i*.1));
+  // glowing head that rides the accent line while it is drawn, then rests on the last point
+  if(e.p1&&!e.dot.classList.contains('hov')){const q=ez(seg(f,.2,.95)),L=e.p1.getTotalLength(),pt=e.p1.getPointAtLength(L*q);dotAt(pt.x,pt.y);e.dot.classList.toggle('on',f>.2)}
+}
+function dotAt(x,y){const e=dhEls,sv=e.p1.ownerSVGElement,r=sv.getBoundingClientRect(),c=e.chart.getBoundingClientRect();
+  e.dot.style.transform=`translate(${(r.left-c.left+x/e.W*r.width).toFixed(1)}px,${(r.top-c.top+y/e.H*r.height).toFixed(1)}px)`;return [r.left-c.left+x/e.W*r.width,r.top-c.top+y/e.H*r.height]}
+function bindDhHover(){
+  const e=dhEls,c=e.chart; if(!c) return;
+  c.addEventListener('pointermove',ev=>{if(!dhDone)return;const sv=e.p1.ownerSVGElement,r=sv.getBoundingClientRect();const n=e.s1.length,pad=8;
+    const i=Math.round(clamp(((ev.clientX-r.left)/r.width*e.W-pad)/(e.W-2*pad))*(n-1));
+    const L=e.p1.getTotalLength();let lo=0,hi=L,tx=pad+i*(e.W-2*pad)/(n-1),pt;for(let k=0;k<22;k++){const m=(lo+hi)/2;pt=e.p1.getPointAtLength(m);if(pt.x<tx)lo=m;else hi=m}
+    e.dot.classList.add('on','hov');const [px,py]=dotAt(pt.x,pt.y);e.x.setAttribute('x1',pt.x);e.x.setAttribute('x2',pt.x);e.x.setAttribute('opacity','.6');
+    const users=Math.round(12480*(.55+.45*(e.s1[i]-Math.min(...e.s1))/(Math.max(...e.s1)-Math.min(...e.s1))));
+    const day=new Date(Date.now()-(n-1-i)*90/(n-1)*864e5).toLocaleDateString(lang==='tr'?'tr-TR':'en-US',{day:'numeric',month:'short'});
+    e.tip.innerHTML=`<b>${users.toLocaleString(lang==='tr'?'tr-TR':'en-US')}</b>${day}`;e.tip.style.transform=`translate(calc(${px}px - 50%),calc(${py}px - 100% - 14px))`;e.tip.classList.add('on')});
+  c.addEventListener('pointerleave',()=>{e.dot.classList.remove('hov');e.tip.classList.remove('on');e.x.setAttribute('opacity','0');if(dhDone){const L=e.p1.getTotalLength(),pt=e.p1.getPointAtLength(L);dotAt(pt.x,pt.y)}});
+}
+/* after the first play the panel stays "live": small ticks instead of replaying */
+function startLive(){
+  if(reduce||dhLive) return; let n=0;
+  const EV={tr:[['Camella · misafir oturumu başladı','şimdi'],['TadFit · barkod okuma +1','şimdi'],['PeriyoDoz · hatırlatma gönderildi','şimdi'],['Falio · yeni yorum','şimdi']],en:[['Camella · guest session started','now'],['TadFit · barcode scanned','now'],['PeriyoDoz · reminder delivered','now'],['Falio · new review','now']]};
+  dhLive=setInterval(()=>{const e=dhEls;if(!e||document.hidden)return;const r=e.f.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;
+    const k=e.kpis[0];k.textContent=DHK[0][2](DHK[0][0]+(++n)*3);k.classList.remove('tick');void k.offsetWidth;k.classList.add('tick');
+    const ul=e.f.querySelector('.dfeed ul');if(ul&&ul.children.length){const ev=EV[lang][n%4],li=document.createElement('li');li.className='on new';li.innerHTML=`<i></i>${ev[0]}<small>${ev[1]}</small>`;ul.prepend(li);ul.lastElementChild.remove();
+      [...ul.children].slice(1).forEach(x=>{const sm=x.querySelector('small');if(sm&&/^(şimdi|now)$/.test(sm.textContent))sm.textContent=lang==='tr'?'1 dk':'1 min'})}
+  },4200);
 }
 
 /* ---------- about dashboard ---------- */
