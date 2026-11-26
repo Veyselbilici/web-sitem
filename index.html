@@ -1,4 +1,8 @@
+<!doctype html>
+<html lang="tr">
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B0C0F">
 <title>Web Sitem</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Veysel Bilici · Bilgisayar mühendisi ve mobil ürün geliştirici">
@@ -90,6 +94,8 @@ nav.links a{position:relative;z-index:1}
 .brand{font-weight:600;font-size:15.5px;letter-spacing:-.02em;text-decoration:none;display:flex;align-items:baseline;gap:2px}
 .brand sup{font:500 9px/1 var(--f-mono);color:var(--fg-3);letter-spacing:.05em}
 .brand{white-space:nowrap;flex:none}
+@media (max-width:380px){.bento .b-plat,.bento .b-lang{grid-column:1/-1;min-height:150px}.bento .plats{grid-template-columns:1fr 1fr}}
+@media (max-width:370px){.seg button{padding:7px 7px}.tools{gap:2px}.brand{gap:7px!important;font-size:14.5px}.brand .mk{width:26px;height:26px}}
 @media (max-width:400px){.brand sup{display:none}}
 nav.links{display:flex;gap:2px;margin-left:auto}
 nav.links a{text-decoration:none;font-size:14px;color:var(--fg-2);padding:7px 12px;border-radius:999px;transition:color .2s}
@@ -314,7 +320,7 @@ nav.links a:hover,nav.links a[aria-current="page"]{color:var(--fg)}
 .ri .rt2 b{color:var(--fg);font-size:22px;font-weight:540;letter-spacing:-.03em}
 .ri .pl{font:500 10px/1 var(--f-mono);letter-spacing:.09em;text-transform:uppercase;color:var(--fg-3)}
 @media (max-width:1000px){.rvg{grid-template-columns:1fr 1fr;grid-template-areas:"s f" "s f" "a b" "q1 q2" "c d" "q3 q3"}}
-@media (max-width:640px){.rvg{grid-template-columns:1fr 1fr;grid-template-areas:"f f" "s s" "a b" "q1 q1" "q2 q2" "c d" "q3 q3"}.rt{padding:20px}.rf{min-height:0}.ri img{width:52px;height:52px}}
+@media (max-width:640px){.rvg{grid-template-columns:1fr 1fr;grid-template-areas:"f f" "s s" "a b" "q1 q1" "q2 q2" "c d" "q3 q3"}.rt{padding:20px}.rf{min-height:0}.ri .rt2{flex-wrap:wrap;gap:4px 8px}.rf .prog{flex-wrap:wrap;gap:4px}.rf .prog i{width:12px}.ri img{width:52px;height:52px}}
 @media (prefers-reduced-motion:reduce){.rt{opacity:1;transform:none;transition:none}.rf q .w{animation:none;opacity:1;filter:none;transform:none}.rs .dist u i{transform:none}}
 .marq{overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);padding-block:14px 30px}
 .rowx{display:flex;gap:18px;width:max-content;align-items:flex-start;animation:marq 110s linear infinite}
@@ -1470,7 +1476,7 @@ function renderWall(){
   // the active segment's fill animation is the clock: it pauses on hover/off-screen, and its end advances the quote
   if(!reduce) f.querySelector('.prog').addEventListener('animationend',e=>{if(e.animationName==='pg')show(rvIdx+1)});
   if(!w.dataset.b){w.dataset.b=1;
-    if('IntersectionObserver' in window)new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){w.classList.add('in');o.disconnect()}}),{threshold:.18}).observe(w);else w.classList.add('in');
+    if('IntersectionObserver' in window)new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){w.classList.add('in');o.disconnect()}}),{threshold:0,rootMargin:'0px 0px -18% 0px'}).observe(w);else w.classList.add('in');
     if('IntersectionObserver' in window)new IntersectionObserver(es=>es.forEach(e=>w.classList.toggle('off',!e.isIntersecting))).observe(w);
     w.addEventListener('pointermove',e=>{if(reduce||e.pointerType!=='mouse')return;const r=w.getBoundingClientRect();g.style.setProperty('--ty',(((e.clientX-r.left)/r.width-.5)*4).toFixed(2)+'deg');g.style.setProperty('--tx',(-((e.clientY-r.top)/r.height-.5)*3).toFixed(2)+'deg');
       const t=e.target.closest('.rt');if(t){const b=t.getBoundingClientRect();t.style.setProperty('--mx',(e.clientX-b.left)+'px');t.style.setProperty('--my',(e.clientY-b.top)+'px')}});
