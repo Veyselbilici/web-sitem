@@ -163,6 +163,8 @@ nav.links a:hover,nav.links a[aria-current="page"]{color:var(--fg)}
 .hcard.nogl::before{background:radial-gradient(40% 50% at 72% 45%,rgba(182,154,248,.28),transparent 70%)}
 @media (max-width:900px){
   .hcard{min-height:calc(100svh - 12px)}
+  .hcard canvas{transform:translate(30%,-16%) scale(1.1);transform-origin:50% 50%}
+  .hcard.gl-on canvas{opacity:.55}
   .hcard::after{background:linear-gradient(0deg,rgba(7,8,10,.92) 0%,rgba(7,8,10,.55) 45%,transparent 70%)}
   .hstate{top:84px;bottom:auto;right:auto;left:20px;flex-direction:row;gap:16px} .hhint{display:none}
   .hstate button{padding:8px 0;font-size:10px;letter-spacing:.1em} .hstate button::before{left:0;right:0;width:auto;top:auto;bottom:0;transform:scaleX(0);transform-origin:0 50%}
@@ -218,7 +220,8 @@ nav.links a:hover,nav.links a[aria-current="page"]{color:var(--fg)}
 @media (max-width:900px){
   .bento{grid-template-columns:1fr 1fr;margin-top:-64px} .bc{min-height:176px;padding:18px}
   .b-apps,.b-time{grid-column:1/-1} .b-apps{min-height:190px} .plats small{display:none}
-  .hand{transform:scale(.85);transform-origin:100% 50%;right:14px;top:22px}
+  .hand{transform:scale(.85);transform-origin:100% 0;right:14px;top:14px}
+  .b-apps{min-height:230px!important}
   .plats{grid-template-columns:1fr} .plats div{flex-direction:row;align-items:center;gap:10px;padding:10px 12px} .plats b{font-size:15px}
   .hin{padding-bottom:calc(32px + 64px)}
 }
@@ -268,6 +271,57 @@ nav.links a:hover,nav.links a[aria-current="page"]{color:var(--fg)}
 
 /* screen wall: two rows of store screenshots that slide against each other with scroll */
 .wall{padding-block:clamp(96px,12vw,170px);overflow:hidden;position:relative}
+/* lab: side project card, the game keeps its own indigo palette */
+.labx{--g:#6366f1;--g2:#06d6a0;display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(24px,4vw,56px);align-items:center;padding:clamp(22px,3.4vw,44px);border-radius:28px;position:relative;overflow:hidden;
+  background:radial-gradient(70% 90% at 85% 40%,color-mix(in oklab,var(--g) 16%,transparent),transparent 70%),linear-gradient(180deg,color-mix(in oklab,var(--fg) 4%,var(--bg)),var(--bg));box-shadow:inset 0 0 0 1px var(--line),0 50px 100px -60px rgba(0,0,0,.6)}
+.lab-tag{display:inline-flex;align-items:center;gap:8px;font:500 10.5px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)}
+.lab-tag i{width:7px;height:7px;border-radius:50%;background:var(--g2);box-shadow:0 0 10px var(--g2)}
+.labx h3{font-size:clamp(34px,4vw,54px);font-weight:540;letter-spacing:-.045em;line-height:1;margin:16px 0 0}
+.labx h3 small{font-size:.36em;color:var(--fg-3);letter-spacing:0;font-weight:450;margin-left:8px;vertical-align:middle}
+.labx .lab-copy>p{color:var(--fg-2);font-size:15.5px;line-height:1.6;max-width:46ch;margin:16px 0 0}
+.lab-modes{list-style:none;padding:0;margin:22px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:1px;border-radius:16px;overflow:hidden;background:var(--line);box-shadow:inset 0 0 0 1px var(--line)}
+.lab-modes li{background:var(--bg);padding:13px 14px;display:flex;flex-direction:column;gap:4px;transition:background .3s}
+.lab-modes li:hover{background:color-mix(in oklab,var(--g) 8%,var(--bg))}
+.lab-modes b{font-weight:520;font-size:14px;letter-spacing:-.01em}
+.lab-modes span{font-size:12.5px;color:var(--fg-3);line-height:1.4}
+.lab-stack{margin-top:18px;font:500 11px/1.5 var(--f-mono);letter-spacing:.04em;color:var(--fg-3)}
+.lab-cta{display:flex;align-items:center;gap:14px;margin-top:22px;flex-wrap:wrap}
+.lab-cta small{color:var(--fg-3);font-size:12px;max-width:30ch}
+.lab-vis{position:relative;perspective:1200px}
+.gm{position:relative;border-radius:22px;padding:18px;background:#0f0d1a;color:#e2e8f0;box-shadow:0 0 0 1px rgba(129,140,248,.25),0 40px 90px -40px rgba(99,102,241,.55);transform:rotateY(-9deg) rotateX(5deg);transition:transform 1s var(--ease);overflow:hidden;font-family:var(--f-sans)}
+.labx:hover .gm{transform:rotateY(-3deg) rotateX(2deg) translateY(-4px)}
+.gm::before{content:"";position:absolute;inset:-40% -20% auto auto;width:70%;height:90%;background:radial-gradient(closest-side,rgba(99,102,241,.35),transparent);pointer-events:none}
+.gm-top{display:flex;justify-content:space-between;align-items:center;font:500 10.5px/1 var(--f-mono);letter-spacing:.1em;color:#94a3b8}
+.gm-live{display:inline-flex;align-items:center;gap:6px}.gm-live i{width:6px;height:6px;border-radius:50%;background:#06d6a0;animation:gmBlink 1.6s ease-in-out infinite}
+@keyframes gmBlink{50%{opacity:.3}}
+.gm-pl{display:flex;margin-top:16px}
+.gm-pl span{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font:600 13px/1 var(--f-sans);color:#0f0d1a;background:var(--c);box-shadow:0 0 0 3px #0f0d1a;margin-right:-6px;opacity:0;transform:translateY(8px) scale(.8)}
+.gm-pl span.bot{font-size:15px}
+.lab.in .gm-pl span{animation:gmJoin .6s var(--ease) forwards}
+.lab.in .gm-pl span:nth-child(2){animation-delay:.25s}.lab.in .gm-pl span:nth-child(3){animation-delay:.5s}.lab.in .gm-pl span:nth-child(4){animation-delay:.75s}
+@keyframes gmJoin{to{opacity:1;transform:none}}
+.gm-q{margin-top:18px;display:grid;gap:8px}
+.gm-q small{font:500 10.5px/1 var(--f-mono);letter-spacing:.08em;color:#818cf8;text-transform:uppercase}
+.gm-q b{font-size:clamp(17px,1.7vw,21px);font-weight:540;letter-spacing:-.02em;line-height:1.25}
+.gm-bar{height:4px;border-radius:4px;background:#2a2742;margin-top:14px;overflow:hidden}
+.gm-bar i{display:block;height:100%;background:linear-gradient(90deg,#06d6a0,#6366f1);transform-origin:left;animation:gmTime 6s linear infinite}
+@keyframes gmTime{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+.gm-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.gm-opts span{padding:12px;border-radius:12px;background:#1e1b2e;box-shadow:inset 0 0 0 1px #363256;font-size:13.5px;font-weight:500}
+.gm-opts span.ok{animation:gmOk 6s steps(1) infinite}
+@keyframes gmOk{0%,74%{background:#1e1b2e;box-shadow:inset 0 0 0 1px #363256;color:#e2e8f0}75%,100%{background:rgba(6,214,160,.16);box-shadow:inset 0 0 0 1px #06d6a0;color:#34d399}}
+.gm-pop{position:absolute;right:18px;top:104px;font:600 12px/1 var(--f-mono);color:#fbbf24;padding:7px 10px;border-radius:999px;background:rgba(251,191,36,.12);box-shadow:inset 0 0 0 1px rgba(251,191,36,.35);opacity:0;animation:gmPop 6s var(--ease) infinite}
+@keyframes gmPop{0%,76%{opacity:0;transform:translateY(8px)}80%,95%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-6px)}}
+.gm-emo{position:absolute;right:22px;bottom:14px;width:40px;height:120px;pointer-events:none}
+.gm-emo i{position:absolute;bottom:0;left:0;font-style:normal;font-size:18px;opacity:0;animation:gmEmo 4.8s ease-out infinite}
+.gm-emo i:nth-child(2){animation-delay:1.2s;left:14px}.gm-emo i:nth-child(3){animation-delay:2.4s;left:4px}.gm-emo i:nth-child(4){animation-delay:3.6s;left:18px}
+@keyframes gmEmo{0%{opacity:0;transform:translateY(0) scale(.7)}15%{opacity:1}100%{opacity:0;transform:translateY(-110px) scale(1.1)}}
+.lab-demo{position:absolute;left:14px;bottom:-26px;font:500 10px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)}
+.lab .labx{opacity:0;transform:translateY(30px);transition:opacity .9s var(--ease),transform 1.1s var(--ease)}
+.lab.in .labx{opacity:1;transform:none}
+@media (max-width:900px){.labx{grid-template-columns:1fr}.lab-vis{margin-bottom:22px}.gm{transform:none}.gm-emo,.gm-pop{display:none}}
+@media (max-width:420px){.lab-modes{grid-template-columns:1fr}.gm-opts span{padding:10px;font-size:12.5px}}
+@media (prefers-reduced-motion:reduce){.lab .labx,.gm-pl span{opacity:1;transform:none;animation:none}.gm-bar i,.gm-opts span.ok,.gm-pop,.gm-emo i,.gm-live i{animation:none}}
 .rvw{perspective:1800px}
 .rvnote{display:block;text-align:center;margin-top:28px;color:var(--fg-3)}
 .rvg{display:grid;gap:14px;grid-template-columns:1.05fr 1fr 1fr .9fr;grid-template-areas:"s f f a" "s q1 b q2" "c q3 q3 d";transform:rotateX(var(--tx,0deg)) rotateY(var(--ty,0deg));transform-style:preserve-3d;transition:transform .9s var(--ease)}
@@ -674,6 +728,9 @@ nav.links a:hover,nav.links a[aria-current="page"]{color:var(--fg)}
   .pstage-wrap{position:sticky;top:0;z-index:2;background:var(--bg);padding-top:16px;height:min(48vh,400px)}
   .pstage{position:relative;top:auto;height:100%;max-width:400px;margin-inline:auto}
   .pstep{min-height:58vh}
+  .pstage-wrap{box-shadow:0 0 0 24px var(--bg);clip-path:inset(0 -24px -40px -24px)}
+  .pstage-wrap::after{content:"";position:absolute;left:-24px;right:-24px;bottom:-40px;height:40px;background:linear-gradient(var(--bg),transparent);pointer-events:none}
+  .pstep:not(.on) h3{transform:none} .pstep::after{left:-12px}
   .prail{bottom:0}
 }
 
@@ -1198,6 +1255,44 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;paddin
   <p class="rvnote cap" data-i18n="wall.note">Temsili yorumlar ve veriler · yayında mağaza verisiyle değişecek</p>
 </section>
 
+<section class="sec lab" id="lab">
+  <div class="wrap">
+    <div class="lead">
+      <span class="cap" data-i18n="lab.k">Laboratuvar</span>
+      <h2 class="h2"><span data-i18n="lab.h1">Mesai dışı denemeler.</span> <span class="dim" data-i18n="lab.h2">Ürün değil, oyun alanı.</span></h2>
+    </div>
+    <article class="labx">
+      <div class="lab-copy">
+        <div class="lab-tag"><i></i><span data-i18n="lab.tag">Web oyunu · Gerçek zamanlı</span></div>
+        <h3>Köstebek <small>GameHub</small></h3>
+        <p data-i18n="lab.p">Uygulama indirmeden linkle katılınan, çok oyunculu bir parti oyunu platformu. Odalar, davet linkleri, eksik oyuncu yerine botlar ve canlı sohbet. Herkes aynı anda, aynı saniyede oynar.</p>
+        <ul class="lab-modes">
+          <li><b data-i18n="lab.m1">Aramızdaki Casus</b><span data-i18n="lab.m1d">Herkes mekânı bilir, biri bilmez.</span></li>
+          <li><b data-i18n="lab.m2">Quiz Kapışması</b><span data-i18n="lab.m2d">Hız bonusu, kombo ve joker.</span></li>
+          <li><b data-i18n="lab.m3">Şifre Kırıcı</b><span data-i18n="lab.m3d">Harfler açılır, ilk çözen kazanır.</span></li>
+          <li><b data-i18n="lab.m4">Yakın Tahmin</b><span data-i18n="lab.m4d">Kesin cevap yok, en yakın kazanır.</span></li>
+        </ul>
+        <div class="lab-stack">.NET 9 · SignalR · React 19 · Vite · SQLite · Docker</div>
+        <div class="lab-cta"><a class="btn" href="https://kostebekoyun.onrender.com/" target="_blank" rel="noopener"><span data-i18n="lab.cta">Oyna</span> ↗</a><small data-i18n="lab.note">Ücretsiz sunucuda çalışır, ilk açılış birkaç saniye sürebilir.</small></div>
+      </div>
+      <div class="lab-vis" aria-hidden="true">
+        <div class="gm">
+          <div class="gm-top"><span class="gm-room">ODA · KX7Q</span><span class="gm-live"><i></i>4 <span data-i18n="lab.on">çevrim içi</span></span></div>
+          <div class="gm-pl">
+            <span style="--c:#818cf8">V</span><span style="--c:#06d6a0">E</span><span style="--c:#f59e0b">M</span><span class="bot" style="--c:#94a3b8">🤖</span>
+          </div>
+          <div class="gm-q"><small data-i18n="lab.qk">Quiz Kapışması · 3/10</small><b data-i18n="lab.q">Hangi gezegenin bilinen en çok uydusu var?</b></div>
+          <div class="gm-bar"><i></i></div>
+          <div class="gm-opts"><span>Jüpiter</span><span class="ok">Satürn</span><span data-i18n="lab.o3">Uranüs</span><span data-i18n="lab.o4">Neptün</span></div>
+          <div class="gm-pop">+120 · <span data-i18n="lab.combo">Kombo</span> ×3</div>
+          <div class="gm-emo"><i>🔥</i><i>😂</i><i>👏</i><i>🕵️</i></div>
+        </div>
+        <span class="lab-demo" data-i18n="lab.demo">temsili ekran</span>
+      </div>
+    </article>
+  </div>
+</section>
+
 <section class="sec" style="padding-top:clamp(40px,6vw,80px)">
   <div class="wrap teaser">
     <span class="cap" data-i18n="tz.k">Hakkımda</span>
@@ -1363,7 +1458,7 @@ const T={tr:{},en:{
  'hero.lede':'I build scalable mobile and web products that pair a refined user experience with solid architecture.',
  'm.1':'Apps live','m.3':'Languages','m.4':'İzmir · local time',
  'proc.h2':'Five steps, one flow.','ly.1':'Interface','ly.2':'Services','ly.3':'Data',
- 'wall.k':'User experience','dh.k':'Product dashboard','dh.h1':'Shipping is not the end.','dh.h2':'Every release is watched, measured and improved.','wall.h1':'In their users’ words.','wall.h2':'From App Store and Google Play reviews.','wall.note':'Representative reviews and figures · replaced with store data at launch',
+ 'wall.k':'User experience','dh.k':'Product dashboard','dh.h1':'Shipping is not the end.','dh.h2':'Every release is watched, measured and improved.','wall.h1':'In their users’ words.','wall.h2':'From App Store and Google Play reviews.','wall.note':'Representative reviews and figures · replaced with store data at launch','lab.k':'Lab','lab.h1':'Experiments after hours.','lab.h2':'Not a product, a playground.','lab.tag':'Web game · Real-time','lab.p':'A multiplayer party-game platform you join with a link, no install. Rooms, invite links, bots that fill empty seats and live chat. Everyone plays at the same moment.','lab.m1':'Spy Among Us','lab.m1d':'Everyone knows the place but one.','lab.m2':'Quiz Clash','lab.m2d':'Speed bonus, combos and jokers.','lab.m3':'Code Breaker','lab.m3d':'Letters reveal, first to solve wins.','lab.m4':'Closest Guess','lab.m4d':'No exact answer, closest wins.','lab.cta':'Play','lab.note':'Runs on a free server, the first load can take a few seconds.','lab.on':'online','lab.qk':'Quiz Clash · 3/10','lab.q':'Which planet has the most known moons?','lab.o3':'Uranus','lab.o4':'Neptune','lab.combo':'Combo','lab.demo':'illustrative screen',
  'hero.cta1':'Explore the products','hero.cta2':'About me','d3.g':'Grid','d3.c':'Content','d3.k':'Components','d3.a':'Interaction','d3.l':'live','ar.req':'Request','ar.res':'Response','m.1s':'On the App Store and Google Play','wall.hint':'Drag, or tap a screen','hs.0':'01 · Design','hs.1':'02 · Product','hs.2':'03 · Engineering','hs.k':'Scroll',
  'work.k':'Selected work','work.h1':'Five products, five different problems.','work.h2':'All live, all in use.',
  'eng.k':'Engineering','eng.h1':'A beautiful screen is only as good as the system behind it.','eng.h2':'I build both together.',
@@ -1445,6 +1540,7 @@ const REV=[
  ['periyodoz','i',5,'Gülşen T.','Uyku ve su takibi aynı yerde olunca düzenli kullanmaya başladım. Bildirimler rahatsız etmiyor.','Having sleep and water tracking in one place got me using it daily. Notifications never feel pushy.']];
 const RAPP={camella:['4,9','4.9'],tadfit:['4,8','4.8'],zartzurt:['4,7','4.7'],falio:['4,6','4.6']};
 let rvTimer=0,rvIdx=0;
+(function lab(){const l=document.getElementById('lab');if(!l)return;if('IntersectionObserver' in window)new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){l.classList.add('in');o.disconnect()}}),{threshold:0,rootMargin:'0px 0px -20% 0px'}).observe(l);else l.classList.add('in')})();
 function renderWall(){
   const en=lang==='en',g=$('#rvg');if(!g)return;const N=v=>en?v[1]:v[0];
   const T=en?{avg:'average rating',cnt:'1,240 ratings on both stores',plats:'iOS · Android'}:{avg:'ortalama puan',cnt:'İki mağazada 1.240 değerlendirme',plats:'iOS · Android'};
